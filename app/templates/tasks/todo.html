@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="container d-flex flex-row gap-4 my-5">
+    <div class="card p-4" style="width: 100%" ondrop="drop(event)" ondragover="allowDrop(event)" id="todo-item">
+        <h3>Todo</h3>
+    </div>
+
+    <div class="card p-4" style="width: 100%" ondrop="drop(event)" ondragover="allowDrop(event)" id="done">
+    </div>
+</section>
+
+<div class="d-flex mb-3">
+    <button type="button" class="btn btn-primary btn-circle-md position-fixed bottom-0 end-0 me-5" 
+    style="margin-bottom: 5rem" id="btn-add" data-bs-toggle="modal" data-bs-target="#modalAdd">+</button>
+</div>
+
+<div class="text-light fixed-bottom bg-primary w-100 text-center" style = "height: 5rem">
+    <div class="m-2">
+        <h5 id="footer-time">12:00</h5>
+        <p>2023 Pacmann</p>
+    </div>
+</div>
+
+<!-- modal add -->
+<div class="modal" tabindex="-1" id="modalAdd">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!--toast section-->
+            <div aria-live="polite" aria-atomic="true" class="bg-primary poisition-relative bd-example-toasts">
+                <div class="toast-container p-3 top-0 start-50 translate-middle-x" id="toastPlacement">
+                    <div class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true" id="liveToastAdd">
+                        <div class="d-flex" id="toast-body-add">
+                            <div class="toast-body">
+                                Silahkan isi seluruh form!
+                            </div>
+                            <button type = "button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+            <div class="modal-header">
+            <h5 class="modal-title">Add new task</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form-add">
+                    <div class="mb-3">
+                        <label for="judulAdd" class="form-label">Judul</label>
+                        <input type="text" class="form-control" id="title" placeholder="Judul">
+                    </div>
+                    <div class="mb-3">
+                        <label for="descAdd" class="form-label">Deskripsi</label>
+                        <input type="text" class="form-control" id="description" placeholder="Deskripsi">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="btnAdd">Tambah</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal edit -->
+<div class="modal" tabindex="-1" id="modalEdit">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!--toast section-->
+            <div aria-live="polite" aria-atomic="true" class="bg-primary poisition-relative bd-example-toasts">
+                <div class="toast-container p-3 top-0 start-50 translate-middle-x" id="toastPlacement">
+                    <div class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true" id="liveToastEdit">
+                        <div class="d-flex" id="toast-body-edit">
+                            <div class="toast-body">
+                                Silahkan isi seluruh form!
+                            </div>
+                            <button type = "button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+            <div class="modal-header">
+            <h5 class="modal-title">Edit Task</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form-edit">
+                    <div class="mb-3">
+                        <label for="judulEdit" class="form-label">Judul</label>
+                        <input type="text" class="form-control" id="judulEdit" placeholder="Judul">
+                    </div>
+                    <div class="mb-3">
+                        <label for="descEdit" class="form-label">Deskripsi</label>
+                        <input type="text" class="form-control" id="descEdit" placeholder="Deskripsi">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="btnEdit">Edit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- modal delete -->
+<div class="modal" tabindex="-1" id="modalDelete">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!--toast section-->
+            <div aria-live="polite" aria-atomic="true" class="bg-primary poisition-relative bd-example-toasts">
+                <div class="toast-container p-3 top-0 start-50 translate-middle-x" id="toastPlacement">
+                    <div class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true" id="liveToastDelete">
+                        <div class="d-flex">
+                            <div class="toast-body">
+                                Silahkan isi seluruh form!
+                            </div>
+                            <button type = "button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+            <div class="modal-header">
+            <h5 class="modal-title">Deleting!</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Apakah anda yakin untuk menghapus?</p>
+            </div>
+            <div class="modal-footer">
+                <form id="formDelete">
+                    <button type ="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type ="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
